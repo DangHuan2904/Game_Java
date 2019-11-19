@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    public static int x;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -21,7 +20,6 @@ public class Main extends Application {
         Parent secondPane = secondPageLoader.load();
         Scene secondScene = new Scene(secondPane, 1080, 720);
 
-
         ControllerMain firstPaneController = firstPaneLoader.getController();
         firstPaneController.setSecondScene(secondScene);
 
@@ -31,6 +29,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Tower Defense");
         primaryStage.setScene(firstScene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
