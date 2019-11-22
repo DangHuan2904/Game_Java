@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="game" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="loadGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <AnchorPane layoutY="598.0" prefHeight="122.0" prefWidth="828.0">
             <children>
@@ -34,27 +34,21 @@
                         <Font name="Arial Bold Italic" size="30.0" />
                     </font>
                 </Label>
-                <Line endX="459.79296875" endY="-49.5" layoutX="618.0" layoutY="172.0" startX="-618.5" startY="-49.5" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="playStage" layoutX="826.0" prefHeight="720.0" prefWidth="254.0">
             <children>
-                <Button fx:id="nextLevelId" layoutX="44.0" layoutY="325.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" text="Next Level" textFill="#4163d0">
+                <Button fx:id="nextWare" layoutX="44.0" layoutY="349.0" mnemonicParsing="false" onAction="#loadWare" prefHeight="46.0" prefWidth="166.0" text="Next Wave" textFill="#4163d0">
                     <font>
                         <Font name="Arial Bold Italic" size="20.0" />
                     </font>
                 </Button>
-                <Text layoutX="66.0" layoutY="433.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Next Wave" wrappingWidth="121.99998378753662">
-                    <font>
-                        <Font name="Arial Italic" size="24.0" />
-                    </font>
-                </Text>
-                <Label layoutX="44.0" layoutY="465.0" prefHeight="27.0" prefWidth="102.0" text="Health :" textFill="#cd3535">
+                <Label layoutX="44.0" layoutY="448.0" prefHeight="27.0" prefWidth="102.0" text="Health :" textFill="#cd3535">
                     <font>
                         <Font name="Arial Italic" size="23.0" />
                     </font>
                 </Label>
-                <Label fx:id="healthId" layoutX="139.0" layoutY="461.0" prefHeight="27.0" prefWidth="72.0" text="45" textFill="#cd3535">
+                <Label fx:id="healthId" layoutX="139.0" layoutY="444.0" prefHeight="27.0" prefWidth="72.0" text="45" textFill="#cd3535">
                     <font>
                         <Font name="Arial Italic" size="30.0" />
                     </font>
@@ -75,7 +69,6 @@
                     </font>
                 </Button>
                 <Line endY="526.0" layoutY="194.0" startY="-194.0" />
-                <Line endX="-74.0" endY="447.0" layoutX="328.0" layoutY="274.0" startX="-74.0" startY="-273.5" />
                 <ImageView fx:id="luffyId" fitHeight="91.0" fitWidth="110.0" layoutX="58.0" layoutY="16.0" onMousePressed="#luffy" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                     <image>
                         <Image url="@image/tru_game_1.png" />
@@ -91,46 +84,44 @@
                         <Image fx:id="test" url="@image/tru_game_3.png" />
                     </image>
                 </ImageView>
-                <Text fill="#259417" layoutX="152.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luffy: 5$" wrappingWidth="71.99999135732651">
+                <Text fill="#259417" layoutX="152.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal: 5$" wrappingWidth="71.99999135732651">
                     <font>
                         <Font name="Arial Bold Italic" size="18.0" />
                     </font>
                 </Text>
-                <Text fill="#259417" layoutX="152.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dragon: 8$" wrappingWidth="71.99999135732651">
+                <Text fill="#259417" layoutX="152.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MachineGun: 8$" wrappingWidth="83.99999134242535">
                     <font>
                         <Font name="Arial Bold Italic" size="18.0" />
                     </font>
                 </Text>
-                <Text fill="#259417" layoutX="152.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Garp: 10$" wrappingWidth="71.99999135732651">
+                <Text fill="#259417" layoutX="152.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sniper: 10$" wrappingWidth="71.99999135732651">
                     <font>
                         <Font name="Arial Bold Italic" size="18.0" />
                     </font>
                 </Text>
             </children>
         </AnchorPane>
-        <Line endX="387.5" layoutX="439.0" layoutY="598.0" startX="-439.0" />
-        <Line endX="466.0" endY="-50.0" layoutX="614.0" layoutY="50.0" startX="-614.0" startY="-50.0" />
-        <Line endX="-26.0" endY="310.0" layoutX="26.0" layoutY="410.0" startX="-26.0" startY="-410.0" />
-      <ImageView fx:id="background" fitHeight="598.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
+
+                  <ImageView fx:id="background" fitHeight="602.0" fitWidth="828.0"  pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/background.png" />
+               </image>
+            </ImageView>
+      <ImageView  fitHeight="134.0" fitWidth="344.0" layoutX="482.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@image/background.png" />
+            <Image url="@image/line1.png" />
          </image>
       </ImageView>
-
-        <Line endX="125.0" endY="-68.0" layoutX="702.0" layoutY="113.0" startX="-156.0" startY="-68.0" stroke="#fdfd99" strokeLineCap="BUTT" strokeMiterLimit="5.0" strokeWidth="50.0" />
-
-        <Line endX="277.0" endY="41.0" layoutX="265.0" layoutY="123.0" startX="277.0" startY="-78.0" stroke="#fdfd99" strokeLineCap="ROUND" strokeWidth="50.0" />
-        <Line endX="74.0" endY="-84.0" layoutX="468.0" layoutY="258.0" startX="-161.0" startY="-84.0" stroke="#fdfd99" strokeLineCap="ROUND" strokeWidth="50.0" />
-        <Line endX="42.0" endY="-78.0" layoutX="265.0" layoutY="123.0" startX="42.0" startY="51.0" stroke="#fdfd99" strokeLineCap="BUTT" strokeWidth="50.0" />
-        <Line endX="52.0" endY="-69.0" layoutX="255.0" layoutY="113.0" startX="-153.0" startY="-69.0" stroke="#fdfd99" strokeLineCap="ROUND" strokeWidth="50.0" />
-        <Line endX="-173.0" endY="-88.0" layoutX="275.0" layoutY="133.0" startX="-173.0" startY="158.0" stroke="#fdfd99" strokeLineCap="BUTT" strokeWidth="50.0" />
-        <Line cache="true" endX="415.0" endY="151.0" layoutX="285.0" layoutY="143.0" pickOnBounds="true" startX="-183.0" startY="152.0" stroke="#fdfd99" strokeLineCap="ROUND" strokeWidth="50.0" />
-        <Line endX="415.0" endY="151.0" layoutX="285.0" layoutY="143.0" startX="415.0" startY="389.0" stroke="#fdfd99" strokeLineCap="BUTT" strokeWidth="50.0" />
-        <Line endX="415.0" endY="390.0" layoutX="285.0" layoutY="143.0" startX="229.0" startY="390.0" stroke="#fdfd99" strokeLineCap="ROUND" strokeWidth="50.0" />
-        <Line endX="229.0" endY="284.0" layoutX="285.0" layoutY="143.0" startX="229.0" startY="391.0" stroke="#fdfd99" strokeLineCap="BUTT" strokeWidth="50.0" />
-        <Line endX="229.0" endY="283.0" layoutX="285.0" layoutY="143.0" startX="13.0" startY="283.0" stroke="#fdfd99" strokeLineCap="ROUND" strokeWidth="50.0" />
-        <Line endX="13.0" endY="289.0" layoutX="285.0" layoutY="143.0" startX="13.0" startY="390.0" stroke="#fdfd99" strokeLineCap="ROUND" strokeWidth="50.0" />
-        <Line endX="13.0" endY="390.0" layoutX="285.0" layoutY="143.0" startX="-286.0" startY="390.0" stroke="#fdfd99" strokeLineCap="BUTT" strokeWidth="50.0" />
+      <ImageView  fitHeight="263.0" fitWidth="166.0" layoutX="484.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/line2.png" />
+         </image>
+      </ImageView>
+      <ImageView  fitHeight="132.0" fitWidth="625.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/line3.png" />
+         </image>
+      </ImageView>
 
     </children>
 </AnchorPane>

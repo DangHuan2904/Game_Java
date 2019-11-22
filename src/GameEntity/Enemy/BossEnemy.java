@@ -1,12 +1,26 @@
 package GameEntity.Enemy;
 
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Path;
 
-public class BossEnemy extends Enemy{
-    public BossEnemy() {
-        super(EnemyConfig.BOSS_ENEMY_HEALTH, EnemyConfig.BOSS_ENEMY_ARMOR,
-                EnemyConfig.BOSS_ENEMY_SPEED, EnemyConfig.BOSS_ENEMY_WIDTH,
-                EnemyConfig.BOSS_ENEMY_HEIGHT, EnemyConfig.BOSS_ENEMY_REWARD);
-        color = Color.VIOLET;
+public class BossEnemy extends AbstractEnemy {
+    public BossEnemy (Path path){
+        super(path);
+        this.speed = 4;
+        this.armor = 100;
+        this.money = 5;
+        this.MAX_HP = 500;
+        this.HP = 500;
+        this.imagePath = "./sample/image/bossEnemy.png";
+        this.image = new Image(imagePath);
+        this.imageView = new ImageView(image);
+        this.imageView.setTranslateX(-69);
+        this.imageView.setTranslateY(-69);
+
     }
+
+
+
+
 }

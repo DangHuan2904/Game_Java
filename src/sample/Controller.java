@@ -1,46 +1,61 @@
 package sample;
 
+import GameEntity.Enemy.AbstractEnemy;
+import GameEntity.Enemy.BossEnemy;
+import GameEntity.Enemy.NormalEnemy;
+import GameEntity.Tower.AbstractTower;
+import GameEntity.Tower.MachineGunTower;
+import GameEntity.Tower.NormalTower;
+import GameEntity.Tower.SniperTower;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
-import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
-    final double[] sceneXY = new double[2];
-    final int cost_luffy = 5;
-    final int cost_dragon = 8;
-    final int cost_garp = 10;
-
-    int cash = 150;
-
-    int[] XY = new int[20];
-    int index = 0;
+    int cash = 50;
+    private List<AbstractEnemy> enemies = new ArrayList<>();
+    private List<AbstractTower> towers = new ArrayList<>();
 
     @FXML
     ImageView background;
     @FXML
-    AnchorPane game;
+    AnchorPane loadGame;
+
 
     private Scene firstScene;
 
+
     public void setFirstScene(Scene scene) {
         firstScene = scene;
+    }
+
+
+    private Path generatePath() {
+        Path path = new Path();
+        MoveTo spawner = new MoveTo(0,440);
+        LineTo lineTo1 = new LineTo(560,440);
+        LineTo lineTo2 = new LineTo(560, 148);
+        LineTo lineTo3 = new LineTo(805.0, 148.0);
+        path.getElements().addAll(spawner, lineTo1, lineTo2, lineTo3);
+        return path;
     }
 
     public void mainMenu(ActionEvent actionEvent) {
@@ -49,47 +64,13 @@ public class Controller {
     }
 
 
-
-
-    @FXML
-    public void luffy(MouseEvent mouseEvent) {
-        Image luffyImage = new Image("./sample/image/tru_1.png");
-
-        background.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Image areas = background.getImage();
-                int mouseX = (int) mouseEvent.getX();
-                int mouseY = (int) mouseEvent.getY();
-                PixelReader placePixels = areas.getPixelReader();
-                        try {
-                            if ((598 - mouseX) < 598 && (828 - mouseY) < 828) {
-                                if (!placePixels.getColor(mouseX, mouseY)
-                                .equals(Color.color((double) 253 / 255,(double) 253/255,(double) 153/ 255))) {
-                            if (!placePixels.getColor(mouseX + 35, mouseY + 50)
-                                    .equals(Color.color((double) 253 / 255,(double) 253/255,(double) 153/ 255))) {
-                                if (!placePixels.getColor(mouseX + 50, mouseY + 50)
-                                        .equals(Color.color((double) 253 / 255,(double) 253/255,(double) 153/ 255))) {
-                                    if (!placePixels
-                                            .getColor(mouseX - 50, mouseY - 50)
-                                            .equals(Color.color((double) 253 / 255,(double) 253/255,(double) 153/ 255))) {
-                                        ImageView luffyTurret = new ImageView(luffyImage);
-                                        luffyTurret.setScaleX(0.75);
-                                        luffyTurret.setScaleY(0.75);
-                                        luffyTurret.setPreserveRatio(true);
-                                        luffyTurret.setTranslateX(mouseX - 50);
-                                        luffyTurret.setTranslateY(mouseY - 70);
-                                        game.getChildren().add(luffyTurret);
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Out of bounds");
-                }
-            }
+    public void luffy() {
+        background.setOnMouseClicked(mouseEvent -> {
+            AbstractTower tower = new NormalTower() ;
+            towers.add(tower);
+            loadGame.getChildren().add(tower.getImage(mouseEvent.getX()- 17, mouseEvent.getY()-25));
+            cash -= 5;
+            background.setOnMouseClicked(null);
         });
 
         /*rectangle.setOnMouseClicked(e -> {
@@ -112,45 +93,74 @@ public class Controller {
     }
 
     public void dragon() {
-        /*canvas.setOnMouseClicked(e -> {
-            sceneXY[0] = e.getSceneX();
-            sceneXY[1] = e.getSceneY();
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            if ( coordinatesFind(sceneXY[0], sceneXY[1], XY  ) != 0 && cash >= cost_dragon){
-                gc.drawImage(new Image("sample/image/tru_2.png"), sceneXY[0] - 35, sceneXY[1] - 50, 75,100);
-                cash -= cost_dragon;
 
-            }
-            canvas.setOnMouseClicked(null);
-        });*/
+        background.setOnMouseClicked(mouseEvent -> {
+            AbstractTower tower = new MachineGunTower() ;
+            towers.add(tower);
+            loadGame.getChildren().add(tower.getImage(mouseEvent.getX()-17, mouseEvent.getY()-30));
+            cash -= 8;
+            background.setOnMouseClicked(null);
+        });
     }
 
     public void garp() {
-        /*canvas.setOnMouseClicked(e -> {
-            sceneXY[0] = e.getSceneX();
-            sceneXY[1] = e.getSceneY();
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            if ( coordinatesFind(sceneXY[0], sceneXY[1], XY  ) != 0 && cash >= cost_garp){
-                gc.drawImage(new Image("sample/image/tru_3.png"), sceneXY[0] - 35, sceneXY[1] - 50, 75,100);
-                cash -= cost_garp;
-            }
-            canvas.setOnMouseClicked(null);
-        });*/
+
+        background.setOnMouseClicked(mouseEvent -> {
+            AbstractTower tower = new SniperTower() ;
+            towers.add(tower);
+            loadGame.getChildren().add(tower.getImage(mouseEvent.getX()-17, mouseEvent.getY()-25));
+            cash -= 10;
+            background.setOnMouseClicked(null);
+        });
     }
 
 
     @FXML
     Label  cashId;
-
     @FXML
-    public void initialize(){
-        new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                cashId.setText("$" + cash);
-            }
-        }.start();
+    Button nextWare;
 
+    public void loadWare() {
+
+        nextWare.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                for (int i = 0; i < 1; i++) {
+                    AbstractEnemy temp = new NormalEnemy(generatePath());
+                    enemies.add(temp);
+                    loadGame.getChildren().add(temp.getImageView());
+                }
+                new AnimationTimer() {
+                    long lastUpdateTime = System.currentTimeMillis() / 1000;
+                    int enemyID = 0;
+                    @Override
+                    public void handle(long l) {
+                        long current = System.currentTimeMillis() / 1000;
+                        if (current - lastUpdateTime == 1) {
+                            lastUpdateTime = current;
+                            if (enemyID < enemies.size())
+                                enemies.get(enemyID++).update();
+                        }
+
+                        for (AbstractEnemy enemy : enemies)
+                            for (AbstractTower tower : towers) {
+                                if (tower.inRange(enemy)) {
+                                    tower.shoot(loadGame, enemy);
+                                }
+                            }
+
+
+                        for (int i = 0; i < enemies.size(); i++)
+                            if (enemies.get(i).isRemovable()) {
+                                loadGame.getChildren().remove(enemies.get(i).getImageView());
+                                enemies.remove(i);
+                                i--;
+                            }
+                        cashId.setText("$" + cash);
+                    }
+                }.start();
+            }
+        });
     }
 
 }
