@@ -13,32 +13,22 @@
     <children>
         <AnchorPane layoutY="598.0" prefHeight="122.0" prefWidth="828.0">
             <children>
-                <Label layoutX="143.0" layoutY="39.0" prefHeight="46.0" prefWidth="102.0" text="Level:" textFill="#4163d0">
-                    <font>
-                        <Font name="Arial Italic" size="30.0" />
-                    </font>
-                </Label>
-                <Label fx:id="levelId" layoutX="265.0" layoutY="46.0" prefHeight="36.0" prefWidth="102.0" text="1/3">
-                    <font>
-                        <Font name="Arial Bold Italic" size="30.0" />
-                    </font>
-                </Label>
                 
-                <Label layoutX="499.0" layoutY="41.0" prefHeight="46.0" prefWidth="102.0" text="Cash:" textFill="#4163d0">
+                <Label layoutX="185.0" layoutY="38.0" prefHeight="48.0" prefWidth="174.0" text="Cash:" textFill="#4163d0">
                     <font>
-                        <Font name="Arial Italic" size="30.0" />
+                        <Font name="Arial Italic" size="42.0" />
                     </font>
                 </Label>
-                <Label fx:id="cashId" layoutX="617.0" layoutY="46.0" prefHeight="36.0" prefWidth="102.0">
+                <Label fx:id="cashId" layoutX="442.0" layoutY="38.0" prefHeight="48.0" prefWidth="146.0">
                     <font>
-                        <Font name="Arial Bold Italic" size="30.0" />
+                        <Font name="Arial Bold Italic" size="42.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
         <AnchorPane fx:id="playStage" layoutX="826.0" prefHeight="720.0" prefWidth="254.0">
             <children>
-                <Button fx:id="nextWare" layoutX="44.0" layoutY="349.0" mnemonicParsing="false" onAction="#loadWare" prefHeight="46.0" prefWidth="166.0" text="Next Wave" textFill="#4163d0">
+                <Button fx:id="nextWare" layoutX="44.0" layoutY="315.0" mnemonicParsing="false" onAction="#loadWare" prefHeight="46.0" prefWidth="166.0" text="Next Wave" textFill="#4163d0">
                     <font>
                         <Font name="Arial Bold Italic" size="20.0" />
                     </font>
@@ -48,7 +38,7 @@
                         <Font name="Arial Italic" size="23.0" />
                     </font>
                 </Label>
-                <Label fx:id="healthId" layoutX="139.0" layoutY="444.0" prefHeight="27.0" prefWidth="72.0" text="45" textFill="#cd3535">
+                <Label fx:id="healthId" layoutX="139.0" layoutY="444.0" prefHeight="27.0" prefWidth="72.0"  textFill="#cd3535">
                     <font>
                         <Font name="Arial Italic" size="30.0" />
                     </font>
@@ -99,25 +89,27 @@
                         <Font name="Arial Bold Italic" size="18.0" />
                     </font>
                 </Text>
+            <Button fx:id="pauseId" layoutX="28.0" layoutY="387.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="72.0" text="Pause" />
+            <Button fx:id="continueId" layoutX="141.0" layoutY="387.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="72.0" text="Continue" />
             </children>
         </AnchorPane>
 
-                  <ImageView fx:id="background" fitHeight="602.0" fitWidth="828.0"  pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="background" fitHeight="602.0" fitWidth="828.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/background.png" />
                </image>
             </ImageView>
-      <ImageView  fitHeight="134.0" fitWidth="344.0" layoutX="482.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="134.0" fitWidth="344.0" layoutX="482.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/line1.png" />
          </image>
       </ImageView>
-      <ImageView  fitHeight="263.0" fitWidth="166.0" layoutX="484.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="263.0" fitWidth="166.0" layoutX="484.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/line2.png" />
          </image>
       </ImageView>
-      <ImageView  fitHeight="132.0" fitWidth="625.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="132.0" fitWidth="625.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/line3.png" />
          </image>

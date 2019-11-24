@@ -7,11 +7,12 @@ import javafx.scene.shape.Path;
 public class TankerEnemy extends AbstractEnemy {
     public TankerEnemy (Path path){
         super(path);
-        this.speed = 3;
-        this.armor = 100;
+        this.speed = 35;
+        this.armor = 50;
         this.money = 5;
-        this.MAX_HP = 500;
-        this.HP = 500;
+        this.MAX_HP = 200;
+        this.HP = 200;
+        this.cost = 5;
         this.imagePath = "./sample/image/tankerEnemy.png";
         this.image = new Image(imagePath);
         this.imageView = new ImageView(image);

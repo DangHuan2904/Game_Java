@@ -7,11 +7,12 @@ import javafx.scene.shape.Path;
 public class BossEnemy extends AbstractEnemy {
     public BossEnemy (Path path){
         super(path);
-        this.speed = 4;
-        this.armor = 100;
+        this.speed = 45;
+        this.armor = 50;
         this.money = 5;
-        this.MAX_HP = 500;
-        this.HP = 500;
+        this.MAX_HP = 400;
+        this.HP = 400;
+        this.cost = 8;
         this.imagePath = "./sample/image/bossEnemy.png";
         this.image = new Image(imagePath);
         this.imageView = new ImageView(image);
@@ -20,7 +21,20 @@ public class BossEnemy extends AbstractEnemy {
 
     }
 
+    @Override
+    public void decreaseHP( int damage){
+        this.HP = this.HP - damage + this.armor;
+        this.healthBar.setValue(HP / MAX_HP);
+        if ( HP <= 0 )
+        {
+            HP = 0;
+            removable = true;
+        }
+    }
 
+    public void getHP(){
+        healthBar.setValue(HP / MAX_HP);
+    }
 
 
 }

@@ -3,6 +3,7 @@ package sample;
 import GameEntity.Enemy.AbstractEnemy;
 import GameEntity.Enemy.BossEnemy;
 import GameEntity.Enemy.NormalEnemy;
+import GameEntity.Enemy.TankerEnemy;
 import GameEntity.Tower.AbstractTower;
 import GameEntity.Tower.MachineGunTower;
 import GameEntity.Tower.NormalTower;
@@ -31,6 +32,7 @@ import java.util.List;
 public class Controller {
 
     int cash = 50;
+    int health = 100;
     private List<AbstractEnemy> enemies = new ArrayList<>();
     private List<AbstractTower> towers = new ArrayList<>();
 
@@ -68,7 +70,7 @@ public class Controller {
         background.setOnMouseClicked(mouseEvent -> {
             AbstractTower tower = new NormalTower() ;
             towers.add(tower);
-            loadGame.getChildren().add(tower.getImage(mouseEvent.getX()- 17, mouseEvent.getY()-25));
+            loadGame.getChildren().add(tower.getImage(loadGame, mouseEvent.getX()- 17, mouseEvent.getY()-25));
             cash -= 5;
             background.setOnMouseClicked(null);
         });
@@ -97,7 +99,7 @@ public class Controller {
         background.setOnMouseClicked(mouseEvent -> {
             AbstractTower tower = new MachineGunTower() ;
             towers.add(tower);
-            loadGame.getChildren().add(tower.getImage(mouseEvent.getX()-17, mouseEvent.getY()-30));
+            loadGame.getChildren().add(tower.getImage(loadGame, mouseEvent.getX()- 17, mouseEvent.getY()-25));
             cash -= 8;
             background.setOnMouseClicked(null);
         });
@@ -108,58 +110,139 @@ public class Controller {
         background.setOnMouseClicked(mouseEvent -> {
             AbstractTower tower = new SniperTower() ;
             towers.add(tower);
-            loadGame.getChildren().add(tower.getImage(mouseEvent.getX()-17, mouseEvent.getY()-25));
+            loadGame.getChildren().add(tower.getImage(loadGame, mouseEvent.getX()- 17, mouseEvent.getY()-25));
             cash -= 10;
             background.setOnMouseClicked(null);
         });
     }
 
+    @FXML
+    Button pauseId;
+    @FXML
+    Button continueId;
+    boolean pauseGame = false;
+
 
     @FXML
     Label  cashId;
     @FXML
+    Label  healthId;
+    @FXML
     Button nextWare;
 
     public void loadWare() {
-
         nextWare.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent mouseEvent) {
-                for (int i = 0; i < 1; i++) {
+                for (int i = 0; i < 100; i++) {
                     AbstractEnemy temp = new NormalEnemy(generatePath());
+                    AbstractEnemy temp2 = new BossEnemy(generatePath());
+                    AbstractEnemy temp3 = new TankerEnemy(generatePath());
                     enemies.add(temp);
+                    enemies.add(temp2);
+                    enemies.add(temp3);
                     loadGame.getChildren().add(temp.getImageView());
+                    loadGame.getChildren().add(temp.getHealthBar());
+                    loadGame.getChildren().add(temp2.getImageView());
+                    loadGame.getChildren().add(temp2.getHealthBar());
+                    loadGame.getChildren().add(temp3.getImageView());
+                    loadGame.getChildren().add(temp3.getHealthBar());
                 }
                 new AnimationTimer() {
                     long lastUpdateTime = System.currentTimeMillis() / 1000;
                     int enemyID = 0;
+                    long lastTurretUpdate = System.currentTimeMillis() / 1000;
+                    long lastTurretUpdate2 = System.currentTimeMillis() / 1000;
+                    long lastTurretUpdate3 = System.currentTimeMillis() / 1000;
+
                     @Override
                     public void handle(long l) {
+
                         long current = System.currentTimeMillis() / 1000;
+                        long elapsedTurret = System.currentTimeMillis() / 1000 - lastTurretUpdate;
+                        long elapsedTurret2 = System.currentTimeMillis() / 1000 - lastTurretUpdate2;
+                        long elapsedTurret3 = System.currentTimeMillis() / 1000 - lastTurretUpdate3;
+
                         if (current - lastUpdateTime == 1) {
                             lastUpdateTime = current;
-                            if (enemyID < enemies.size())
-                                enemies.get(enemyID++).update();
+                            if (enemyID < enemies.size()) {
+                                enemies.get(enemyID++).update(pauseGame);
+                            }
                         }
 
-                        for (AbstractEnemy enemy : enemies)
-                            for (AbstractTower tower : towers) {
+                        pauseId.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent mouseEvent) {
+                                pauseGame = true;
+                            }
+                        });
+
+                        /*continueId.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent mouseEvent) {
+                                pauseGame = false;
+                            }
+                        });*/
+
+                        if (pauseGame) {
+                            for (AbstractEnemy enemy : enemies)
+                                enemy.getPathTransition().pause();
+                            this.stop();
+                        }
+                        /*else {
+                            for (AbstractEnemy enemy : enemies)
+                                enemy.getPathTransition().play();
+                        }*/
+                        for (int i = 0; i < towers.size(); i++) {
+                            if (towers.get(i).isRemovable()) {
+                                towers.remove(i);
+                                i--;
+                            }
+                        }
+
+                        for (AbstractTower tower : towers)
+                            for (AbstractEnemy enemy : enemies)
+                             {
                                 if (tower.inRange(enemy)) {
-                                    tower.shoot(loadGame, enemy);
+                                    tower.rotate(enemy);
+                                    if (tower instanceof NormalTower && elapsedTurret % 3 == 1) {
+                                        lastTurretUpdate = System.currentTimeMillis() / 1000;
+                                        tower.shoot(loadGame, enemy);
+                                    }
+                                    if (tower instanceof MachineGunTower && elapsedTurret2 % 2 == 1) {
+                                        lastTurretUpdate2 = System.currentTimeMillis() / 1000;
+                                        tower.shoot(loadGame, enemy);
+                                    }
+                                    if (tower instanceof SniperTower && elapsedTurret3 % 4 == 1) {
+                                        lastTurretUpdate3 = System.currentTimeMillis() / 1000;
+                                        tower.shoot(loadGame, enemy);
+                                    }
+                                    break;
                                 }
                             }
 
 
-                        for (int i = 0; i < enemies.size(); i++)
+                        for (int i = 0; i < enemies.size(); i++) {
+                            enemies.get(i).relocateHealthBar(enemies.get(i).getImageView().getTranslateX() + 65, enemies.get(i).getImageView().getTranslateY()+40);
                             if (enemies.get(i).isRemovable()) {
-                                loadGame.getChildren().remove(enemies.get(i).getImageView());
+                                loadGame.getChildren().removeAll(enemies.get(i).getImageView(), enemies.get(i).getHealthBar());
                                 enemies.remove(i);
                                 i--;
                             }
+                        }
+
+                        for (int i = 0; i < enemies.size(); i++) {
+                            if ( enemies.get(i).isFinished())
+                                health = health -  5;
+                        }
+
+                        healthId.setText("" + health);
                         cashId.setText("$" + cash);
                     }
                 }.start();
             }
+
         });
     }
 
