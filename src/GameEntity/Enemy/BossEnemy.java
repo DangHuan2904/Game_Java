@@ -36,5 +36,11 @@ public class BossEnemy extends AbstractEnemy {
         healthBar.setValue(HP / MAX_HP);
     }
 
-
+    @Override
+    public boolean isFinished() {
+        return finished;
+    }
+    public int getCost() {
+        return cost;
+    }
 }

@@ -85,6 +85,10 @@ public abstract class AbstractEnemy {
         this.healthBar.relocate(x, y);
     }
 
+    public int getCost() {
+        return cost;
+    }
+
     public void update(boolean pause) {
         pathTransition = new PathTransition(Duration.millis(speed * 1000), path, imageView);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);

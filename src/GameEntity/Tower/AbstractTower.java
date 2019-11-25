@@ -82,8 +82,7 @@ public abstract class AbstractTower{
 
     public void rotate(AbstractEnemy enemy) {
         double angle = 0;
-        //System.out.println("gun  " + imageBaseView.getTranslateY() + "  " + imageBaseView.getTranslateX());
-        angle = Math.toDegrees(Math.atan2( -enemy.getImageView().getTranslateY() + imageGunView.getTranslateY(),
+            angle = Math.toDegrees(Math.atan2( -enemy.getImageView().getTranslateY() + imageGunView.getTranslateY(),
                 -enemy.getImageView().getTranslateX() + imageGunView.getTranslateX()));
         imageGunView.setRotate(angle);
     }

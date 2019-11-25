@@ -226,6 +226,7 @@ public class Controller {
                         for (int i = 0; i < enemies.size(); i++) {
                             enemies.get(i).relocateHealthBar(enemies.get(i).getImageView().getTranslateX() + 65, enemies.get(i).getImageView().getTranslateY()+40);
                             if (enemies.get(i).isRemovable()) {
+                                cash = cash + enemies.get(i).getCost();
                                 loadGame.getChildren().removeAll(enemies.get(i).getImageView(), enemies.get(i).getHealthBar());
                                 enemies.remove(i);
                                 i--;
@@ -234,7 +235,7 @@ public class Controller {
 
                         for (int i = 0; i < enemies.size(); i++) {
                             if ( enemies.get(i).isFinished())
-                                health = health -  5;
+                                health = 0;
                         }
 
                         healthId.setText("" + health);

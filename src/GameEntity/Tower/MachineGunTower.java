@@ -52,7 +52,6 @@ public class MachineGunTower extends AbstractTower {
         });
         enemy.decreaseHP(this.damage);
         enemy.getHP();
-        System.out.println( enemy.gethp() + " ");
     }
 
 }

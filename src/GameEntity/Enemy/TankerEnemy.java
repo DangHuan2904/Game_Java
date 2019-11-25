@@ -20,5 +20,26 @@ public class TankerEnemy extends AbstractEnemy {
         this.imageView.setTranslateY(-69);
     }
 
+    @Override
+    public void decreaseHP( int damage){
+        this.HP = this.HP - damage + this.armor;
+        this.healthBar.setValue(HP / MAX_HP);
+        if ( HP <= 0 )
+        {
+            HP = 0;
+            removable = true;
+        }
+    }
 
+    public void getHP(){
+        healthBar.setValue(HP / MAX_HP);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return finished;
+    }
+    public int getCost() {
+        return cost;
+    }
 }
